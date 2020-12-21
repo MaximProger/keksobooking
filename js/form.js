@@ -22,4 +22,26 @@
   }
 
   setAdress();
+
+  // Валидация полей количество комнат и количество гостей
+  const roomNumber = document.querySelector("#room_number");
+  const capacity = document.querySelector("#capacity");
+
+  if (roomNumber.value < capacity.value) {
+    capacity.setCustomValidity(
+      "Количество гостей не должно превышать число комнат"
+    );
+  }
+
+  capacity.addEventListener("change", function (evt) {
+    evt.preventDefault();
+
+    if (roomNumber.value < capacity.value) {
+      capacity.setCustomValidity(
+        "Количество гостей не должно превышать число комнат"
+      );
+    } else {
+      capacity.setCustomValidity("");
+    }
+  });
 })();

@@ -1,6 +1,6 @@
 (function () {
   // Перетаскивание окна диалога
-  window.mapPinMain.addEventListener("mousedown", function (evt) {
+  window.DndDialog = function (evt) {
     evt.preventDefault();
 
     let startCoords = {
@@ -48,5 +48,5 @@
 
     document.addEventListener("mousemove", onMouseMove);
     document.addEventListener("mouseup", onMouseUp);
-  });
+  };
 })();

@@ -9,15 +9,17 @@
   }
 
   window.mapPinMain = document.querySelector(".map__pin--main");
+  window.noticeForm = document.querySelector(".notice__form");
 
   let onOpenApp = function (evt) {
     evt.preventDefault();
 
     map.classList.remove("map--faded");
-
+    window.noticeForm.classList.remove("notice__form--disabled");
     setPins();
     clickOnPin();
     mapPinMain.removeEventListener("mouseup", onOpenApp);
+    window.mapPinMain.addEventListener("mousedown", window.DndDialog);
   };
 
   mapPinMain.addEventListener("mouseup", onOpenApp);

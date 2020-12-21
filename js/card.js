@@ -28,7 +28,7 @@
     function printPhotos(mapCardElement, pin) {
       let mapPhoto = mapCardElement.querySelector(".popup__photos li");
 
-      for (let i = 0; i < photos.length; i++) {
+      for (let i = 0; i < window.photos.length; i++) {
         let mapPhotoElement = mapPhoto.cloneNode(true);
         mapPhotoElement.querySelector("img").src = pin.offer.photos[i];
 
