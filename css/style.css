@@ -700,6 +700,13 @@ textarea:focus {
   background-position: -10px -10px;
 }
 
+.popup__photos {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
 .popup__photos img {
   max-width: 50px;
 }

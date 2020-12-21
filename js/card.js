@@ -1,9 +1,15 @@
 (function () {
   // Вывод информации об объявления
   window.createFirstApply = function (pin) {
+    const mapCards = window.map.querySelectorAll(".map__card");
     const mapCardTemplate = document
       .querySelector("template")
       .content.querySelector(".map__card");
+
+    // Удаляет все окна
+    for (let i = 0; i < mapCards.length; i++) {
+      mapCards[i].remove();
+    }
 
     function getType(type) {
       switch (type) {
@@ -27,8 +33,7 @@
     // Выводит фотографии
     function printPhotos(mapCardElement, pin) {
       let mapPhoto = mapCardElement.querySelector(".popup__photos li");
-
-      for (let i = 0; i < window.photos.length; i++) {
+      for (let i = 0; i < pin.offer.photos.length; i++) {
         let mapPhotoElement = mapPhoto.cloneNode(true);
         mapPhotoElement.querySelector("img").src = pin.offer.photos[i];
 
@@ -66,9 +71,9 @@
         pin.offer.type
       );
       mapCardElement.querySelector(".popup__text--capacity").textContent =
-        pin.offer.rooms + "комнаты для" + pin.offer.guests + "гостей";
+        pin.offer.rooms + " комнаты для " + pin.offer.guests + " гостей";
       mapCardElement.querySelector(".popup__text--time").textContent =
-        "Заезд после" + pin.offer.checkin + ", выезд до" + pin.offer.checkout;
+        "Заезд после " + pin.offer.checkin + ", выезд до " + pin.offer.checkout;
 
       mapCardElement.querySelector(".popup__description").textContent =
         pin.offer.description;
@@ -83,6 +88,17 @@
     }
 
     fragment.appendChild(createCard(pin));
+
+    // Закрытие модального окна с объявлением
+    // const popupCloseBtn = mapCardElement.querySelector(".popup__close");
+
+    // console.log(popupCloseBtn);
+
+    // popupCloseBtn.addEventListener("click", function (mapCardElement) {
+    //   mapCardElement.remove();
+    //   console.log(pin);
+    // });
+
     map.appendChild(fragment);
   };
 })();

@@ -1,5 +1,5 @@
 (function () {
-  function clickOnPin() {
+  function clickOnPin(pins) {
     const mapPinList = document.querySelectorAll(".map__pin--item");
     for (let i = 0; i < mapPinList.length; i++) {
       mapPinList.item(i).addEventListener("click", function () {
@@ -10,19 +10,6 @@
 
   window.mapPinMain = document.querySelector(".map__pin--main");
   window.noticeForm = document.querySelector(".notice__form");
-
-  let onOpenApp = function (evt) {
-    evt.preventDefault();
-
-    map.classList.remove("map--faded");
-    window.noticeForm.classList.remove("notice__form--disabled");
-    setPins();
-    clickOnPin();
-    mapPinMain.removeEventListener("mouseup", onOpenApp);
-    window.mapPinMain.addEventListener("mousedown", window.DndDialog);
-  };
-
-  mapPinMain.addEventListener("mouseup", onOpenApp);
 
   // Вывод новых меток
   const mapPins = document.querySelector(".map__pins");
@@ -43,10 +30,28 @@
   }
 
   function setPins() {
-    for (let i = 0; i < window.pins.length; i++) {
-      window.fragment.appendChild(renderPin(pins[i]));
-    }
+    window.backend.load(function (pins) {
+      for (let i = 0; i < pins.length; i++) {
+        window.fragment.appendChild(renderPin(pins[i]));
+      }
 
-    mapPins.appendChild(fragment);
+      mapPins.appendChild(fragment);
+
+      clickOnPin(pins);
+    });
   }
+
+  const mapPinItem = document.querySelector(".map__pin");
+
+  let onOpenApp = function (evt) {
+    evt.preventDefault();
+
+    map.classList.remove("map--faded");
+    window.noticeForm.classList.remove("notice__form--disabled");
+    setPins();
+    mapPinMain.removeEventListener("mouseup", onOpenApp);
+    window.mapPinMain.addEventListener("mousedown", window.DndDialog);
+  };
+
+  mapPinMain.addEventListener("mouseup", onOpenApp);
 })();
